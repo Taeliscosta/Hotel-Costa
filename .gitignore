@@ -1,0 +1,26 @@
+# Dependências Node.js
+node_modules/
+
+# Arquivos de ambiente
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+
+# Configurações do editor
+.vscode/
+.idea/
+
+# Arquivos temporários
+tmp/
+temp/
