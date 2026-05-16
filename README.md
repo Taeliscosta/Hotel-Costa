@@ -1,4 +1,4 @@
-# Hotel Prime
+# Hotel Costa
 
 Sistema de reservas para uma rede fictícia de hotéis.
 
@@ -14,19 +14,19 @@ O projeto permitirá:
 
 ## Tecnologias
 
-### Projeto 1
+### Etapa 1
 - Node.js
 - Express
 - HTML
 - CSS
 - Bootstrap
 
-### Projeto 2
+### Etapa 2
 - React
 - Hooks
 - Consumo de API
 
-### Projeto 3
+### Etapa 3
 - Banco de dados
 - Docker
 - REST API
