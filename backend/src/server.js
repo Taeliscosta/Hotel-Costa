@@ -4,6 +4,10 @@ const app = express();
 
 app.use(express.json());
 
+const clienteRoutes = require("./routes/clienteRoutes");
+
+app.use("/clientes", clienteRoutes);
+
 app.get("/", (req, res) => {
   res.send("API Hotel Costa funcionando!");
 });
