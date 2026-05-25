@@ -1,77 +1,52 @@
-let clientes = [];
+import { clienteService }
+from "../services/clienteService.js";
 
-const listarClientes = (req, res) => {
-  res.json(clientes);
-}; 
+export const clienteController = {
 
-const cadastrarCliente = (req, res) => {
-  const {nome, email, telefone} = req.body;
+  listarTodos(req, res) {
 
-  const novoCliente = {
-    id: Date.now(),
-    nome,
-    email,
-    telefone
-  };
+    const clientes =
+      clienteService.listarTodos();
 
-  clientes.push(novoCliente);
+    res.json(clientes);
+  },
 
-  res.status(201).json({
-    mensagem: "Cliente cadastrado com sucesso",
-    cliente: novoCliente
-  });
-};
+  buscarPorId(req, res) {
 
-const atualizarCliente = (req, res) => {
-  const {id} = req.params;
+    const cliente =
+      clienteService.buscarPorId(
+        Number(req.params.id)
+      );
 
-  const{nome, email, telefone} = req.body;
+    res.json(cliente);
+  },
 
-  const cliente = clientes.find(
-    cliente => cliente.id == id
-  );
+  criar(req, res) {
 
-  if (!cliente) {
-    return res.status(404).json({
-      mensagem: "Cliente não encontrado"
-    });
+    const novoCliente =
+      clienteService.criar(req.body);
+
+    res.status(201).json(novoCliente);
+  },
+
+  atualizar(req, res) {
+
+    const clienteAtualizado =
+      clienteService.atualizar(
+        Number(req.params.id),
+        req.body
+      );
+
+    res.json(clienteAtualizado);
+  },
+
+  remover(req, res) {
+
+    clienteService.remover(
+      Number(req.params.id)
+    );
+
+    res.status(204).end();
   }
 
-  cliente.nome = nome;
-  cliente.email = email;
-  cliente.telefone = telefone;
-
-  res.json({
-    mensagem: "Cliente atualizado com sucesso",
-    cliente
-  });
-};
-
-const deletarCliente = (req, res) => {
-  const {id} = req.params;
-
-  const clienteExiste = clientes.find(
-    cliente => cliente.id == id
-  );
-
-  if (!clienteExiste) {
-    return res.status(404).json({
-      mensagem: "Cliente não encontrado"
-    });
-  }
-
-  clientes = clientes.filter(
-    cliente => cliente.id != id
-  );
-
-  res.json({
-    mensagem: "Cliente removido com sucesso"
-  });
-};
-
-module.exports = {
-  listarClientes,
-  cadastrarCliente,
-  atualizarCliente,
-  deletarCliente
 };
