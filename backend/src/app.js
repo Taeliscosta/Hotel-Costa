@@ -3,6 +3,7 @@ import clienteRoutes from "./routes/clienteRoutes.js";
 import { logger } from "./middleware/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import quartoRoutes from "./routes/quartoRoutes.js";
+import reservaRoutes from "./routes/reservaRoutes.js";
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.use(logger);
 app.use("/clientes", clienteRoutes);
 
 app.use("/quartos", quartoRoutes);
+
+app.use("/reservas", reservaRoutes);
 
 app.get("/", (req, res) => {
 

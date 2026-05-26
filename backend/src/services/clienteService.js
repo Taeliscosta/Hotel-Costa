@@ -25,10 +25,7 @@ export const clienteService = {
   criar({ nome, email, telefone, cpf}) {
 
     if (!nome || !email || !cpf) {
-
-      const erro = new Error(
-        "Nome, email e CPF são obrigatórios"
-      );
+      const erro = new Error( "Nome, email e CPF são obrigatórios");
 
       erro.status = 400;
 
