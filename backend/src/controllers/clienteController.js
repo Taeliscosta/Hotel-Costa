@@ -1,5 +1,4 @@
-import { clienteService }
-from "../services/clienteService.js";
+import { clienteService } from "../services/clienteService.js";
 
 export const clienteController = {
 

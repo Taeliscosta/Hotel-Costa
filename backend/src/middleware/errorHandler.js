@@ -8,7 +8,7 @@ export function errorHandler(
   console.error(err.message);
 
   const status = err.status || 500;
-
+  
   res.status(status).json({
     erro: err.message
   });

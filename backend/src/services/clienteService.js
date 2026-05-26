@@ -22,12 +22,12 @@ export const clienteService = {
     return cliente;
   },
 
-  criar({ nome, email, telefone }) {
+  criar({ nome, email, telefone, cpf}) {
 
-    if (!nome || !email) {
+    if (!nome || !email || !cpf) {
 
       const erro = new Error(
-        "Nome e email são obrigatórios"
+        "Nome, email e CPF são obrigatórios"
       );
 
       erro.status = 400;
@@ -38,7 +38,8 @@ export const clienteService = {
     return clienteModel.inserir({
       nome,
       email,
-      telefone
+      telefone,
+      cpf
     });
   },
 

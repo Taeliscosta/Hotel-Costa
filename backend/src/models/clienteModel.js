@@ -12,13 +12,14 @@ export const clienteModel = {
     return clientes.find(cliente => cliente.id === id);
   },
 
-  inserir({ nome, email, telefone }) {
+  inserir({ nome, email, telefone, cpf}) {
 
     const novoCliente = {
       id: nextId++,
       nome,
       email,
-      telefone
+      telefone, 
+      cpf
     };
 
     clientes.push(novoCliente);
@@ -28,18 +29,13 @@ export const clienteModel = {
 
   atualizar(id, dados) {
 
-    const index = clientes.findIndex(
-      cliente => cliente.id === id
-    );
+    const index = clientes.findIndex(cliente => cliente.id === id);
 
     if (index === -1) {
       return null;
     }
 
-    clientes[index] = {
-      ...clientes[index],
-      ...dados
-    };
+    clientes[index] = { ...clientes[index], ...dados};
 
     return clientes[index];
   },
@@ -48,9 +44,7 @@ export const clienteModel = {
 
     const tamanhoAntes = clientes.length;
 
-    clientes = clientes.filter(
-      cliente => cliente.id !== id
-    );
+    clientes = clientes.filter(cliente => cliente.id !== id);
 
     return clientes.length < tamanhoAntes;
   }
