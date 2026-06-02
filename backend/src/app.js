@@ -4,8 +4,11 @@ import { logger } from "./middleware/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import quartoRoutes from "./routes/quartoRoutes.js";
 import reservaRoutes from "./routes/reservaRoutes.js";
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 

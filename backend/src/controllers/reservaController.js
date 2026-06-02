@@ -9,5 +9,10 @@ export const reservaController = {
   criar(req, res) {
     const novaReserva = reservaService.criar(req.body);
     res.status(201).json(novaReserva);
+  },
+
+  remover(req, res) {
+    reservaService.remover(Number(req.params.id));
+    res.status(204).end();
   }
 };

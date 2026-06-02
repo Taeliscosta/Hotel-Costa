@@ -40,6 +40,17 @@ export const reservaService = {
       dataSaida
     });
 
-  }
+  },
+
+  remover(id) {
+    const removido = reservaModel.remover(id);
+
+    if (!removido) {
+      const erro = new Error("Reserva não encontrada");
+      erro.status = 404;
+      throw erro;
+   }
+   
+  } 
 
 };

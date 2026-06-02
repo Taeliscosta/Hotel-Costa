@@ -1,9 +1,6 @@
 # Dependências Node.js
 node_modules/
 
-# Remove o frontend enquanto o backend é finalizado
-frontend/
-
 # Arquivos de ambiente
 .env
 
