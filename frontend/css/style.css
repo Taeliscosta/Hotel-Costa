@@ -1,0 +1,19 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  font-weight: bold;
+}
+
+.list-group-item {
+  transition: 0.2s;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}

@@ -8,7 +8,8 @@ const selectCliente = document.getElementById("clienteSelect");
 const selectQuarto = document.getElementById("quartoSelect");
 
 function formatarData(data) {
-  return new Date(data).toLocaleDateString("pt-BR");
+  const [ano, mes, dia] = data.split("-");
+  return `${dia}/${mes}/${ano}`;
 }
 
 export async function carregarClientesSelect() {
@@ -60,9 +61,11 @@ export async function carregarReservas() {
       "list-group-item d-flex justify-content-between align-items-center";
     item.innerHTML = `
       <div>
-        <strong>${cliente?.nome || "Cliente"}</strong><br>
-        Quarto ${quarto?.numero || reserva.quartoId}<br>
-        ${formatarData(reserva.dataEntrada)} → ${formatarData(reserva.dataSaida)}
+        <div><strong>👤 ${cliente?.nome || "Cliente"}</strong></div>
+        <div>🛏️ Quarto ${quarto?.numero || reserva.quartoId}</div>
+        <div>
+          📅 ${formatarData(reserva.dataEntrada)} → ${formatarData(reserva.dataSaida)}
+        </div>
       </div>
       <button
         class="btn btn-danger btn-sm"
