@@ -5,6 +5,7 @@ import { quartoService } from "../services/quartoService.js";
 const lista = document.getElementById("reservasLista");
 const form = document.getElementById("reservaForm");
 const selectCliente = document.getElementById("clienteSelect");
+const selectQuarto = document.getElementById("quartoSelect");
 
 function formatarData(data) {
   return new Date(data).toLocaleDateString("pt-BR");
@@ -21,6 +22,21 @@ export async function carregarClientesSelect() {
     option.textContent = cliente.nome;
     selectCliente.appendChild(option);
   });
+}
+
+export async function carregarQuartosSelect() {
+  const quartos = await quartoService.listar();
+  selectQuarto.innerHTML = "";
+
+  quartos
+    .filter(quarto => quarto.disponivel)
+    .forEach(quarto => {
+      const option = document.createElement("option");
+      option.value = quarto.id;
+      option.textContent =
+        `Quarto ${quarto.numero} - ${quarto.tipo}`;
+      selectQuarto.appendChild(option);
+    });
 }
 
 export async function carregarReservas() {
@@ -70,9 +86,7 @@ export function configurarReservaForm() {
     e.preventDefault();
     await reservaService.criar({
       clienteId: Number(selectCliente.value),
-      quartoId: Number(
-        document.getElementById("quartoId").value
-      ),
+      quartoId: Number(selectQuarto.value),
       dataEntrada:
         document.getElementById("dataEntrada").value,
       dataSaida:

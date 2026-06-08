@@ -6,6 +6,7 @@ const form = document.getElementById("clienteForm");
 
 export async function carregarClientes() {
   const clientes = await clienteService.listar();
+  document.getElementById("totalClientes").textContent = clientes.length;
 
   lista.innerHTML = "";
 
