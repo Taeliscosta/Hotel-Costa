@@ -1,54 +1,111 @@
-# Hotel Costa
+# 🏨 Hotel Costa
 
-Sistema de gerenciamento hoteleiro desenvolvido para a disciplina de Programação Web.
+Sistema de Reservas de Hotel desenvolvido para a disciplina de **Programação Web**.
 
-O projeto está sendo desenvolvido em etapas, evoluindo de uma aplicação SPA simples para uma arquitetura fullstack completa.
-
----
-
-# Objetivo do Projeto
-
-O Hotel Costa é um sistema de gerenciamento de hotel que permite:
-
-* Cadastro de clientes
-* Gerenciamento de quartos
-* Controle de reservas
-* Regras de disponibilidade de quartos
-* Consumo de API REST
-* Arquitetura backend em camadas
+O projeto tem como objetivo aplicar conceitos de desenvolvimento web utilizando **Node.js**, **Express**, **JavaScript**, **Bootstrap**, **API REST** e **arquitetura em camadas**, evoluindo em etapas ao longo da disciplina.
 
 ---
 
-# Tecnologias Utilizadas
+# 📖 Sobre o Projeto
+
+O Hotel Costa é um sistema de gerenciamento de reservas que permite:
+
+* Cadastrar clientes;
+* Gerenciar quartos;
+* Realizar reservas;
+* Consultar reservas cadastradas;
+* Relacionar clientes e quartos através das reservas.
+
+O projeto foi desenvolvido seguindo o padrão de arquitetura em camadas para separar responsabilidades e facilitar manutenção e evolução.
+
+---
+
+# 🚀 Tecnologias Utilizadas
 
 ## Backend
 
 * Node.js
-* Express
-* JavaScript ES Modules
+* Express.js
+* CORS
+* JavaScript ES6 Modules
 
 ## Frontend
 
 * HTML5
 * CSS3
 * JavaScript
-* Bootstrap
+* Bootstrap 5
+* Fetch API
 
 ## Ferramentas
 
 * Git
 * GitHub
+* VS Code
 * Thunder Client
-* VSCode
 
 ---
 
-# Estrutura do Projeto
+# 📊 Diagrama de Classes (UML)
 
-```txt
+![Diagrama UML](docs/uml-hotel-costa.png)
+
+## Relações
+
+* Cliente (1:N) Reserva
+* Quarto (1:N) Reserva
+
+Uma reserva pertence a um único cliente e a um único quarto.
+
+---
+
+# 🏗️ Arquitetura do Projeto
+
+O sistema foi desenvolvido utilizando arquitetura em camadas:
+
+```text
+Cliente
+   ↓
+Routes
+   ↓
+Controllers
+   ↓
+Services
+   ↓
+Models
+```
+
+### Responsabilidades
+
+#### Routes
+
+Responsáveis pelo mapeamento das rotas da API.
+
+#### Controllers
+
+Recebem as requisições HTTP e retornam as respostas.
+
+#### Services
+
+Contêm as regras de negócio da aplicação.
+
+#### Models
+
+Representam as entidades e armazenam os dados da aplicação.
+
+#### Middleware
+
+Responsáveis por funcionalidades transversais como logs e tratamento de erros.
+
+---
+
+# 📂 Estrutura do Projeto
+
+```text
 HotelCosta/
 │
 ├── backend/
+│   │
 │   ├── src/
 │   │   ├── controllers/
 │   │   ├── middleware/
@@ -59,274 +116,188 @@ HotelCosta/
 │   │   └── server.js
 │   │
 │   ├── package.json
-│   └── package-lock.json
+│   └── .gitignore
 │
 ├── frontend/
+│   │
 │   ├── css/
+│   │   └── style.css
+│   │
 │   ├── js/
-│   ├── pages/
+│   │   ├── services/
+│   │   │   ├── clienteService.js
+│   │   │   ├── quartoService.js
+│   │   │   └── reservaService.js
+│   │   │
+│   │   ├── ui/
+│   │   │   ├── clienteView.js
+│   │   │   └── reservaView.js
+│   │   │
+│   │   ├── api.js
+│   │   ├── config.js
+│   │   └── main.js
+│   │
 │   └── index.html
 │
-├── .gitignore
+├── docs/
+│   └── uml-hotel-costa.png
+│
 └── README.md
 ```
 
 ---
 
-# Arquitetura Utilizada
+# ⚙️ Como Executar o Projeto
 
-O backend segue arquitetura em camadas:
-
-```txt
-Routes
-→ Controllers
-→ Services
-→ Models
-```
-
-## Responsabilidades
-
-### Routes
-
-Responsáveis pelas rotas da API.
-
-### Controllers
-
-Responsáveis por receber requisições e retornar respostas.
-
-### Services
-
-Responsáveis pelas regras de negócio.
-
-### Models
-
-Responsáveis pelo gerenciamento dos dados.
-
-### Middleware
-
-Responsáveis por logs e tratamento de erros.
-
----
-
-# Entidades do Sistema
-
-## Cliente
-
-```txt
-- id
-- nome
-- email
-- telefone
-- cpf
-```
-
-## Quarto
-
-```txt
-- id
-- numero
-- tipo
-- preco
-- disponivel
-```
-
-## Reserva
-
-```txt
-- id
-- clienteId
-- quartoId
-- dataEntrada
-- dataSaida
-```
-
-# Relações entre Entidades
-
-## Cliente → Reserva
-Relação 1:N onde um cliente pode possuir várias reservas.
-
-## Quarto → Reserva
-Relação 1:N onde um quarto pode participar de várias reservas ao longo do tempo.
-
----
-
-# Funcionalidades Implementadas
-
-## Clientes
-
-* Criar cliente
-* Listar clientes
-* Buscar cliente por ID
-* Atualizar cliente
-* Remover cliente
-
-## Quartos
-
-* Criar quarto
-* Listar quartos
-* Buscar quarto por ID
-* Atualizar quarto
-* Remover quarto
-
-## Reservas
-
-* Criar reserva
-* Listar reservas
-* Verificação de disponibilidade do quarto
-
----
-
-# Regras de Negócio
-
-* Um quarto não pode ser reservado se estiver indisponível
-* Cliente precisa existir para realizar reserva
-* Quarto precisa existir para realizar reserva
-* CPF é obrigatório no cadastro do cliente
-
----
-
-# Instalação do Projeto
-
-## Clonar repositório
+## 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/Taeliscosta/Hotel-Prime.git
+git clone https://github.com/Taeliscosta/HotelCosta.git
 ```
 
----
-
-# Instalar dependências do backend
-
-Acesse a pasta backend:
+## 2. Entrar na pasta do backend
 
 ```bash
 cd backend
 ```
 
-Instale as dependências:
+## 3. Instalar dependências
 
 ```bash
 npm install
 ```
 
----
-
-# Dependências utilizadas
-
-## Express
-
-Instalação:
-
-```bash
-npm install express
-```
-
----
-
-# Executar o Backend
-
-Dentro da pasta backend:
+## 4. Executar o servidor
 
 ```bash
 npm run dev
 ```
 
-Servidor:
+Servidor disponível em:
 
-```txt
+```text
 http://localhost:3000
 ```
 
 ---
 
-# Rotas da API
+# 🌐 Executando o Frontend
+
+Abra o arquivo:
+
+```text
+frontend/index.html
+```
+
+ou utilize a extensão **Live Server** do VS Code.
+
+---
+
+# 📡 Endpoints da API
 
 ## Clientes
 
-| Método | Rota          | Descrição         |
-| ------ | ------------- | ----------------- |
-| GET    | /clientes     | Listar clientes   |
-| GET    | /clientes/:id | Buscar cliente    |
-| POST   | /clientes     | Criar cliente     |
-| PUT    | /clientes/:id | Atualizar cliente |
-| DELETE | /clientes/:id | Remover cliente   |
+| Método | Endpoint      |
+| ------ | ------------- |
+| GET    | /clientes     |
+| GET    | /clientes/:id |
+| POST   | /clientes     |
+| PUT    | /clientes/:id |
+| DELETE | /clientes/:id |
 
 ---
 
 ## Quartos
 
-| Método | Rota         | Descrição        |
-| ------ | ------------ | ---------------- |
-| GET    | /quartos     | Listar quartos   |
-| GET    | /quartos/:id | Buscar quarto    |
-| POST   | /quartos     | Criar quarto     |
-| PUT    | /quartos/:id | Atualizar quarto |
-| DELETE | /quartos/:id | Remover quarto   |
+| Método | Endpoint     |
+| ------ | ------------ |
+| GET    | /quartos     |
+| GET    | /quartos/:id |
+| POST   | /quartos     |
+| PUT    | /quartos/:id |
+| DELETE | /quartos/:id |
 
 ---
 
 ## Reservas
 
-| Método | Rota      | Descrição       |
-| ------ | --------- | --------------- |
-| GET    | /reservas | Listar reservas |
-| POST   | /reservas | Criar reserva   |
+| Método | Endpoint      |
+| ------ | ------------- |
+| GET    | /reservas     |
+| GET    | /reservas/:id |
+| POST   | /reservas     |
+| PUT    | /reservas/:id |
+| DELETE | /reservas/:id |
 
 ---
 
-# Exemplo de JSON
+# ✅ Funcionalidades Implementadas
 
-## Cliente
+## Clientes
 
-```json
-{
-  "nome": "Taelis Costa",
-  "email": "taelis@email.com",
-  "telefone": "83999999999",
-  "cpf": "12345678900"
-}
-```
+* Cadastro de clientes
+* Listagem de clientes
+* Remoção de clientes
 
----
+## Quartos
 
-## Quarto
+* Cadastro de quartos
+* Listagem de quartos
+* Consulta de disponibilidade
 
-```json
-{
-  "numero": 101,
-  "tipo": "Luxo",
-  "preco": 450
-}
-```
+## Reservas
 
----
+* Cadastro de reservas
+* Listagem de reservas
+* Remoção de reservas
+* Associação entre clientes e quartos
 
-## Reserva
+## Frontend
 
-```json
-{
-  "clienteId": 1,
-  "quartoId": 1,
-  "dataEntrada": "2026-06-01",
-  "dataSaida": "2026-06-05"
-}
-```
+* SPA (Single Page Application)
+* Consumo de API REST com Fetch API
+* Atualização dinâmica da interface
+* Seleção automática de clientes
+* Seleção automática de quartos
+* Formatação de datas em padrão brasileiro
 
 ---
 
-# Melhorias Futuras
+# 🎯 Objetivos Acadêmicos
 
-* Integração completa do frontend SPA
-* Banco de dados
-* Docker
-* Autenticação
-* Login de usuários
-* Validação de CPF
-* Check-in e check-out
+* Aplicar conceitos de Programação Web.
+* Desenvolver APIs REST utilizando Express.
+* Implementar arquitetura em camadas.
+* Trabalhar relacionamentos entre entidades.
+* Consumir APIs utilizando Fetch API.
+* Utilizar Git e GitHub para versionamento.
+* Desenvolver uma aplicação SPA.
+
+---
+
+# 🔮 Próximas Evoluções
+
+## Projeto 2
+
+* Persistência em banco de dados
+* Validações avançadas
+* Edição de registros
+* Melhorias de interface
+
+## Projeto 3
+
+* Sistema de autenticação
+* Controle de acesso
 * Dashboard administrativo
+* Relatórios e estatísticas
+* Deploy da aplicação
 
 ---
 
-# Autor
+# 👨‍💻 Autor
 
-Projeto desenvolvido por Taelis Costa para a disciplina de Programação Web.
+**Taélis Holanda**
+
+Estudante de Ciência da Computação — UEPB
+
+GitHub: https://github.com/Taeliscosta

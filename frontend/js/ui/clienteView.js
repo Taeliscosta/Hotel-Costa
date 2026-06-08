@@ -1,16 +1,17 @@
 import { clienteService } from "../services/clienteService.js";
 import { carregarClientesSelect } from "./reservaView.js";
+import { store } from "../state/store.js"
 
 const lista = document.getElementById("clientesLista");
 const form = document.getElementById("clienteForm");
 
 export async function carregarClientes() {
-  const clientes = await clienteService.listar();
-  document.getElementById("totalClientes").textContent = clientes.length;
+  store.clientes = await clienteService.listar();
+  document.getElementById("totalClientes").textContent = store.clientes.length;
 
   lista.innerHTML = "";
 
-  clientes.forEach(cliente => {
+  store.clientes.forEach(cliente => {
     const item = document.createElement("li");
     item.className =
       "list-group-item d-flex justify-content-between align-items-center";

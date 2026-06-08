@@ -1,6 +1,7 @@
 import { reservaService } from "../services/reservaService.js";
 import { clienteService } from "../services/clienteService.js";
 import { quartoService } from "../services/quartoService.js";
+import { store } from "../state/store.js";
 
 const lista = document.getElementById("reservasLista");
 const form = document.getElementById("reservaForm");
@@ -13,11 +14,10 @@ function formatarData(data) {
 }
 
 export async function carregarClientesSelect() {
-  const clientes = await clienteService.listar();
-
+  store.clientes = await clienteService.listar();
   selectCliente.innerHTML = "";
 
-  clientes.forEach(cliente => {
+  store.clientes.forEach(cliente => {
     const option = document.createElement("option");
     option.value = cliente.id;
     option.textContent = cliente.nome;
@@ -26,10 +26,10 @@ export async function carregarClientesSelect() {
 }
 
 export async function carregarQuartosSelect() {
-  const quartos = await quartoService.listar();
+  store.quartos = await quartoService.listar();
   selectQuarto.innerHTML = "";
 
-  quartos
+  store.quartos
     .filter(quarto => quarto.disponivel)
     .forEach(quarto => {
       const option = document.createElement("option");
@@ -41,18 +41,18 @@ export async function carregarQuartosSelect() {
 }
 
 export async function carregarReservas() {
-  const reservas = await reservaService.listar();
-  const clientes = await clienteService.listar();
-  const quartos = await quartoService.listar();
+  store.reservas = await reservaService.listar();
+  store.clientes = await clienteService.listar();
+  store.quartos = await quartoService.listar();
 
   lista.innerHTML = "";
 
-  reservas.forEach(reserva => {
-    const cliente = clientes.find(
+  store.reservas.forEach(reserva => {
+    const cliente = store.clientes.find(
       c => c.id === reserva.clienteId
     );
 
-    const quarto = quartos.find(
+    const quarto = store.quartos.find(
       q => q.id === reserva.quartoId
     );
 
