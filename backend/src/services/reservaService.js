@@ -53,12 +53,25 @@ export const reservaService = {
   },
 
   async remover(id) {
-    const removido = await reservaModel.remover(id);
-    if (!removido) {
+    const reserva = await reservaModel.buscarPorId(id);
+    if (!reserva) {
       const erro = new Error("Reserva não encontrada");
       erro.status = 404;
       throw erro;
     }
+
+    const quarto = await quartoModel.buscarPorId(reserva.quartoId);
+
+    await quartoModel.atualizar(
+      quarto.id,
+      {
+        numero: quarto.numero,
+        tipo: quarto.tipo,
+        preco: quarto.preco,
+        disponivel: 1
+      }
+    );
+    await reservaModel.remover(id);
   }
 
 };

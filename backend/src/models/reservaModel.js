@@ -66,6 +66,31 @@ export const reservaModel = {
     });
   },
 
+  buscarPorId(id) {
+    return new Promise((resolve, reject) => {
+      db.get(
+        `
+          SELECT
+          id,
+          cliente_id AS clienteId,
+          quarto_id AS quartoId,
+          data_entrada AS dataEntrada,
+          data_saida AS dataSaida
+          FROM reservas
+          WHERE id = ?
+        `,
+        [id],
+        (erro, row) => {
+          if (erro) {
+            reject(erro);
+            return;
+          } 
+          resolve(row);
+        }
+      );
+    });
+  },
+  
   remover(id) {
     return new Promise((resolve, reject) => {
       db.run(
