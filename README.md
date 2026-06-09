@@ -348,25 +348,6 @@ ou utilize a extensão **Live Server** do VS Code.
 
 ---
 
-# 🔮 Próximas Evoluções
-
-## Projeto 2
-
-* Persistência em banco de dados
-* Validações avançadas
-* Edição de registros
-* Melhorias de interface
-
-## Projeto 3
-
-* Sistema de autenticação
-* Controle de acesso
-* Dashboard administrativo
-* Relatórios e estatísticas
-* Deploy da aplicação
-
----
-
 # 👨‍💻 Autor
 
 **Taélis Holanda**
