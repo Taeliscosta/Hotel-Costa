@@ -26,8 +26,14 @@ O projeto foi desenvolvido seguindo o padrão de arquitetura em camadas para sep
 
 * Node.js
 * Express.js
+* SQLite3
 * CORS
 * JavaScript ES6 Modules
+
+## Banco de Dados
+
+* SQLite
+* SQL Puro (DDL e DML)
 
 ## Frontend
 
@@ -36,6 +42,7 @@ O projeto foi desenvolvido seguindo o padrão de arquitetura em camadas para sep
 * JavaScript
 * Bootstrap 5
 * Fetch API
+* State Management
 
 ## Ferramentas
 
@@ -61,11 +68,9 @@ Uma reserva pertence a um único cliente e a um único quarto.
 
 # 🏗️ Arquitetura do Projeto
 
-O sistema foi desenvolvido utilizando arquitetura em camadas:
+### Backend
 
 ```text
-Cliente
-   ↓
 Routes
    ↓
 Controllers
@@ -73,7 +78,67 @@ Controllers
 Services
    ↓
 Models
+   ↓
+SQLite
 ```
+
+### Frontend
+
+```
+UI
+ ↓
+State
+ ↓
+Services
+ ↓
+API (Fetch)
+ ↓
+Backend REST
+```
+
+```md
+# 🗄️ Banco de Dados
+
+O sistema utiliza SQLite para persistência dos dados.
+
+### Entidades
+
+#### Clientes
+
+| Campo | Tipo |
+|---------|---------|
+| id | INTEGER |
+| nome | TEXT |
+| email | TEXT |
+| telefone | TEXT |
+| cpf | TEXT |
+
+#### Quartos
+
+| Campo | Tipo |
+|---------|---------|
+| id | INTEGER |
+| numero | INTEGER |
+| tipo | TEXT |
+| preco | REAL |
+| disponivel | INTEGER |
+
+#### Reservas
+
+| Campo | Tipo |
+|---------|---------|
+| id | INTEGER |
+| cliente_id | INTEGER |
+| quarto_id | INTEGER |
+| data_entrada | TEXT |
+| data_saida | TEXT |
+
+### Relacionamentos
+
+* Cliente (1:N) Reserva
+* Quarto (1:N) Reserva
+
+As relações são implementadas utilizando chaves estrangeiras no SQLite.
 
 ### Responsabilidades
 
@@ -108,6 +173,10 @@ HotelCosta/
 │   │
 │   ├── src/
 │   │   ├── controllers/
+│   │   ├── database/
+│   │   │   ├── connection.js
+│   │   │   └── schema.sql
+│   │   │
 │   │   ├── middleware/
 │   │   ├── models/
 │   │   ├── routes/
@@ -115,6 +184,7 @@ HotelCosta/
 │   │   ├── app.js
 │   │   └── server.js
 │   │
+│   ├── hotel.db
 │   ├── package.json
 │   └── .gitignore
 │
@@ -132,6 +202,9 @@ HotelCosta/
 │   │   ├── ui/
 │   │   │   ├── clienteView.js
 │   │   │   └── reservaView.js
+│   │   │
+│   │   ├── state/
+│   │   │   └── store.js
 │   │   │
 │   │   ├── api.js
 │   │   ├── config.js
