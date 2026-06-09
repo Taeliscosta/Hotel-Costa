@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS clientes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nome TEXT NOT NULL,
+  email TEXT NOT NULL,
+  telefone TEXT,
+  cpf TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS quartos (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  numero INTEGER NOT NULL UNIQUE,
+  tipo TEXT NOT NULL,
+  preco REAL NOT NULL,
+  disponivel INTEGER DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS reservas (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+  cliente_id INTEGER NOT NULL,
+  quarto_id INTEGER NOT NULL,
+
+  data_entrada TEXT NOT NULL,
+  data_saida TEXT NOT NULL,
+
+  FOREIGN KEY (cliente_id)
+    REFERENCES clientes(id),
+
+  FOREIGN KEY (quarto_id)
+    REFERENCES quartos(id)
+);

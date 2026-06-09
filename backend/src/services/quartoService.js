@@ -1,56 +1,53 @@
-import { quartoModel }
-from "../models/quartoModel.js";
+import { quartoModel } from "../models/quartoModel.js";
 
 export const quartoService = {
 
-  listarTodos() {
-    return quartoModel.listarTodos();
+  async listarTodos() {
+    return await quartoModel.listarTodos();
   },
 
-  buscarPorId(id) {
-    const quarto = quartoModel.buscarPorId(id);
-
+  async buscarPorId(id) {
+    const quarto = await quartoModel.buscarPorId(id);
     if (!quarto) {
-      const erro = new Error("Quarto não encontrado");
+      const erro = new Error(
+        "Quarto não encontrado"
+      );
       erro.status = 404;
       throw erro;
     }
-
     return quarto;
   },
 
-  criar({ numero, tipo, preco }) {
+  async criar({ numero, tipo, preco }) {
     if (!numero || !tipo || !preco) {
       const erro = new Error("Número, tipo e preço são obrigatórios");
       erro.status = 400;
       throw erro;
     }
-
-    return quartoModel.inserir({ numero, tipo, preco});
-
+    return await quartoModel.inserir({
+      numero,
+      tipo,
+      preco
+    });
   },
 
-  atualizar(id, dados) {
-    const quartoAtualizado = quartoModel.atualizar(id, dados);
-
-    if (!quartoAtualizado) {
+  async atualizar(id, dados) {
+    const atualizado =await quartoModel.atualizar(id, dados);
+    if (!atualizado) {
       const erro = new Error("Quarto não encontrado");
       erro.status = 404;
       throw erro;
     }
-
-    return quartoAtualizado;
+    return await quartoModel.buscarPorId(id);
   },
 
-  remover(id) {
-    const removido = quartoModel.remover(id);
-
+  async remover(id) {
+    const removido = await quartoModel.remover(id);
     if (!removido) {
       const erro = new Error("Quarto não encontrado");
       erro.status = 404;
       throw erro;
     }
-
   }
 
 };

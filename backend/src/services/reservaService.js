@@ -4,20 +4,25 @@ import { quartoModel } from "../models/quartoModel.js";
 
 export const reservaService = {
 
-  listarTodos() {
-    return reservaModel.listarTodos();
+  async listarTodos() {
+    return await reservaModel.listarTodos();
   },
 
-  criar({ clienteId, quartoId, dataEntrada, dataSaida}) {
-    const cliente = clienteModel.buscarPorId(clienteId);
-
+  async criar({
+    clienteId,
+    quartoId,
+    dataEntrada,
+    dataSaida
+  }) {
+    
+    const cliente = await clienteModel.buscarPorId(clienteId);
     if (!cliente) {
       const erro = new Error("Cliente não encontrado");
       erro.status = 404;
       throw erro;
     }
 
-    const quarto = quartoModel.buscarPorId(quartoId);
+    const quarto = await quartoModel.buscarPorId(quartoId);
 
     if (!quarto) {
       const erro = new Error("Quarto não encontrado");
@@ -30,27 +35,30 @@ export const reservaService = {
       erro.status = 400;
       throw erro;
     }
-
-    quarto.disponivel = false;
-
-    return reservaModel.inserir({
+    await quartoModel.atualizar(
+      quartoId,
+      {
+        numero: quarto.numero,
+        tipo: quarto.tipo,
+        preco: quarto.preco,
+        disponivel: 0
+      }
+    );
+    return await reservaModel.inserir({
       clienteId,
       quartoId,
       dataEntrada,
       dataSaida
     });
-
   },
 
-  remover(id) {
-    const removido = reservaModel.remover(id);
-
+  async remover(id) {
+    const removido = await reservaModel.remover(id);
     if (!removido) {
       const erro = new Error("Reserva não encontrada");
       erro.status = 404;
       throw erro;
-   }
-   
-  } 
+    }
+  }
 
 };

@@ -1,53 +1,109 @@
-let quartos = [];
-
-let nextId = 1;
+import db from "../database/connection.js";
 
 export const quartoModel = {
-    listarTodos(){
-        return quartos;
-    },
 
-    buscarPorId(id){
-        return quartos.find(
-            quarto => quarto.id === id
-        );
-    },
+  listarTodos() {
+    return new Promise((resolve, reject) => {
+      db.all(
+        "SELECT * FROM quartos",
+        [],
+        (erro, rows) => {
+          if (erro) {
+            reject(erro);
+            return;
+          }
+          resolve(rows);
+        }
+      );
+    });
+  },
 
-    inserir({ numero, tipo, preco, disponivel}) {
+  buscarPorId(id) {
+    return new Promise((resolve, reject) => {
+      db.get(
+        "SELECT * FROM quartos WHERE id = ?",
+        [id],
+        (erro, row) => {
 
-        const novoQuarto = {
-            id: nextId++,
+          if (erro) {
+            reject(erro);
+            return;
+          }
+          resolve(row);
+        }
+      );
+    });
+  },
+
+  inserir({ numero, tipo, preco }) {
+    return new Promise((resolve, reject) => {
+      db.run(
+        `
+        INSERT INTO quartos
+        (numero, tipo, preco, disponivel)
+        VALUES (?, ?, ?, 1)
+        `,
+        [numero, tipo, preco],
+        function (erro) {
+          if (erro) {
+            reject(erro);
+            return;
+          }
+          resolve({
+            id: this.lastID,
             numero,
             tipo,
             preco,
-            disponivel: true
-        };
-
-        quartos.push(novoQuarto);
-
-        return novoQuarto;
-    },
-
-    atualizar(id, dados) {
-        const index = quartos.findIndex(
-            quarto => quarto.id == id
-        );
-
-        if (index === -1) {
-            return null;
+            disponivel: 1
+          });
         }
+      );
+    });
+  },
 
-        quartos[index] = { ...quartos[index], ...dados};
+  atualizar(id, dados) {
+    return new Promise((resolve, reject) => {
+      db.run(
+        `
+        UPDATE quartos
+        SET numero = ?,
+            tipo = ?,
+            preco = ?,
+            disponivel = ?
+        WHERE id = ?
+        `,
+        [
+          dados.numero,
+          dados.tipo,
+          dados.preco,
+          dados.disponivel,
+          id
+        ],
+        function (erro) {
+          if (erro) {
+            reject(erro);
+            return;
+          }
+          resolve(this.changes > 0);
+        }
+      );
+    });
+  },
 
-        return quartos[index];
-    },
-
-    remover(id) {
-        const tamanhoAntes = quartos.length;
-
-        quartos = quartos.filter(quarto => quarto.id !== id);
-
-        return quartos.length < tamanhoAntes;
-    }
+  remover(id) {
+    return new Promise((resolve, reject) => {
+      db.run(
+        "DELETE FROM quartos WHERE id = ?",
+        [id],
+        function (erro) {
+          if (erro) {
+            reject(erro);
+            return;
+          }
+          resolve(this.changes > 0);
+        }
+      );
+    });
+  }
 
 };
