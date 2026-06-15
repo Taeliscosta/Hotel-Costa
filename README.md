@@ -225,7 +225,7 @@ HotelCosta/
 ## Aplicação Online
 
 🔗 Frontend:
-https://seu-site.netlify.app
+https://beamish-cactus-4d031a.netlify.app/
 
 🔗 API:
 https://hotel-costa.onrender.com
@@ -237,7 +237,9 @@ https://hotel-costa.onrender.com
 ### Backend
 
 cd backend
+
 npm install
+
 npm run dev
 
 ### Frontend
