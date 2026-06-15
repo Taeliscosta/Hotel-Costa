@@ -220,49 +220,29 @@ HotelCosta/
 
 ---
 
-# ⚙️ Como Executar o Projeto
+# 🚀 Acesso Rápido
 
-## 1. Clonar o repositório
+## Aplicação Online
 
-```bash
-git clone https://github.com/Taeliscosta/HotelCosta.git
-```
+🔗 Frontend:
+https://seu-site.netlify.app
 
-## 2. Entrar na pasta do backend
-
-```bash
-cd backend
-```
-
-## 3. Instalar dependências
-
-```bash
-npm install
-```
-
-## 4. Executar o servidor
-
-```bash
-npm run dev
-```
-
-Servidor disponível em:
-
-```text
-http://localhost:3000
-```
+🔗 API:
+https://hotel-costa.onrender.com
 
 ---
 
-# 🌐 Executando o Frontend
+## Executar Localmente
 
-Abra o arquivo:
+### Backend
 
-```text
-frontend/index.html
-```
+cd backend
+npm install
+npm run dev
 
-ou utilize a extensão **Live Server** do VS Code.
+### Frontend
+
+Abra o arquivo index.html ou utilize o Live Server.
 
 ---
 
